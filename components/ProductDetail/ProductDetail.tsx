@@ -76,12 +76,13 @@ const ProductDetailPage = ({ params }: { params: Params }) => {
                   ${product?.price?.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                 </span>
                 <animated.button
-                  style={buttonSpring}
-                  className="px-4 py-2 ml-6 bg-white text-gray-800 text-sm font-semibold rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out"
-                  onClick={() => product && addToCart(product)}
-                >
-                  Add to Cart
-                </animated.button>
+  style={buttonSpring}
+  className="px-4 py-2 ml-6 bg-white text-gray-800 text-sm font-semibold rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out"
+  onClick={() => product && addToCart(product, 1)}
+>
+  Add to Cart
+</animated.button>
+
               </div>
             </div>
           </div>
