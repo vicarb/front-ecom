@@ -14,12 +14,16 @@ const ProductDetailPage = ({ params }: { params: Params }) => {
   const [product, setProduct] = useState<Product | null>(null);
   const [mainImage, setMainImage] = useState('');
   const [thumbnails, setThumbnails] = useState<string[]>([]);
+  const [hasImageLoaded, setHasImageLoaded] = useState(false);
 
   const imageFade = useSpring({
     from: { opacity: 0 },
     to: { opacity: 1 },
-    reset: true,
+    reset: !hasImageLoaded, // only reset when image has not loaded yet
+    onRest: () => setHasImageLoaded(true), // set hasImageLoaded to true when the animation is done
   });
+
+
 
   const buttonSpring = useSpring({
     from: { transform: 'scale(1)' },

@@ -2,12 +2,15 @@
 import React, { useState, useEffect } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import Link from 'next/link';
+import { useCart } from '@/context/CartContext/CartContext';
+import { CartPopup } from '../CartPopup/CartPopup';
+
 
 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const  cartItems  =["prodct1", "prod2"]
+  const { cart } = useCart();
   const [isCartPopupOpen, setIsCartPopupOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -26,7 +29,7 @@ const Navbar = () => {
   }, [scrollPosition]);
 
 
-  const cartItemCount = cartItems.length;
+  const cartItemCount = cart.length;
 
   return (
     <>
