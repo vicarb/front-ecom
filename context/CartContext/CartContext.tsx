@@ -1,16 +1,19 @@
-// CartContext.tsx
+'use client'
 import React, { createContext, useState, useContext } from 'react';
 
-type CartItemType = {
+// Define the type of our cart items
+interface CartItemType {
   productId: string;
   quantity: number;
 }
 
-type CartContextType = {
+// Define the shape of our context state and actions
+interface CartContextType {
   cart: CartItemType[];
   addToCart: (productId: string, quantity: number) => void;
 }
 
+// Create our context
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
@@ -28,6 +31,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
     setCart(newCart);
     localStorage.setItem('cart', JSON.stringify(newCart));
+    console.log(cart);
+    
   }
 
   return (

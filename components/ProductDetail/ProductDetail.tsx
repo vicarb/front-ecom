@@ -6,18 +6,14 @@ import { useRouter } from 'next/router';
 import { animated, useSpring } from '@react-spring/web'
 import { Params } from '@/interfaces/Params/Params';
 import { Product } from '@/interfaces/Product/Product';
+import { useCart } from '@/context/CartContext/CartContext';
 
-
-  
-  const ProductDetailPage = ({ params }: { params: Params }) => {
-
-  const { id } = params
-  const addToCart = () => console.log("hello");
-  const defaultImage = 'https://storage.googleapis.com/ecom-bucket-222/328920ee-03c7-4830-8e00-913cca0487ae-gafas1.webp';
+const ProductDetailPage = ({ params }: { params: Params }) => {
+  const { addToCart } = useCart(); 
+  const { id } = params;
   const [product, setProduct] = useState<Product | null>(null);
   const [mainImage, setMainImage] = useState('');
   const [thumbnails, setThumbnails] = useState<string[]>([]);
-
 
   const imageFade = useSpring({
     from: { opacity: 0 },
@@ -41,8 +37,6 @@ import { Product } from '@/interfaces/Product/Product';
     const response = await axios.get(`https://composterasur.cl/products/${id}`);
     const data = response.data;
     setProduct(data);
-    console.log(product);
-    
     setMainImage(data.mainImage);
     setThumbnails([data.mainImage, ...data.extraImages]);
   };
@@ -55,10 +49,7 @@ import { Product } from '@/interfaces/Product/Product';
             <div>
               <div className="w-full h-80 md:h-auto z-40 overflow-hidden max-w-xs mx-auto">
                 <animated.div style={imageFade}>
-                <Image src={mainImage} alt={product?.title ?? ''} layout="responsive" style={{objectFit:"cover"}} width={500/3} height={500/3} />
-
-
-
+                  <Image src={mainImage} alt={product?.title ?? ''} layout="responsive" style={{objectFit:"cover"}} width={500/3} height={500/3} />
                 </animated.div>
               </div>
               <div className="mt-4 flex justify-between max-w-xs mx-auto">
@@ -83,7 +74,7 @@ import { Product } from '@/interfaces/Product/Product';
                 <animated.button
                   style={buttonSpring}
                   className="px-4 py-2 ml-6 bg-white text-gray-800 text-sm font-semibold rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out"
-                  onClick={() => addToCart()}
+                  onClick={() => product && addToCart(product)}
                 >
                   Add to Cart
                 </animated.button>
@@ -94,7 +85,6 @@ import { Product } from '@/interfaces/Product/Product';
       </div>
     </div>
   );
-
 };
 
 export default ProductDetailPage;
