@@ -6,7 +6,7 @@ const nextConfig = {
   // },
   // output: 'export',
   //
-  basePath:'/home',
+  // basePath:'/home',
   images: {
     domains: ['storage.googleapis.com'],
   },
