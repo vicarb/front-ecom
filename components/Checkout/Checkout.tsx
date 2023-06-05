@@ -1,17 +1,26 @@
 'use client'
 import React, { useState, useContext } from 'react'
 import axios, {AxiosError} from 'axios';
+import { CartItemType } from '@/interfaces/CartItemType/CartItemType';
 
 import { useCart } from '@/context/CartContext/CartContext';
 
 // calculate the total price of all cart items
-const calculateTotal = (items) => {
+const calculateTotal = (items: CartItemType[]) => {
   return items.reduce((acc, item) => acc + item.product.price * item.quantity, 0).toFixed(2);
 };
 
 const Checkout = () => {
   const { cart } = useCart();
   const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    address: '',
+    city: '',
+    country: '',
+    zip: ''
+  });
   
   const handleCheckout = async () => {
     setLoading(true);
@@ -52,11 +61,11 @@ const Checkout = () => {
     setLoading(false);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setFormData(prevState => ({ ...prevState, [name]: value }))
-  }
-  
+ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const { name, value } = e.target;
+  setFormData(prevState => ({ ...prevState, [name]: value }));
+}
+
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -142,7 +151,7 @@ const Checkout = () => {
       <div className="border rounded-md shadow-md p-4 bg-orange-50">
         <h2 className="font-bold text-lg mb-2">Order Summary</h2>
         {cart.map((item) => (
-          <div key={item.id} className="flex justify-between border-t pt-2 mt-2">
+          <div key={item.product._id} className="flex justify-between border-t pt-2 mt-2">
             <p className="text-gray-800 font-semibold">{item.product.title} x {item.quantity}</p>
             <p className="text-gray-800 font-semibold">${item.product.price}</p>
           </div>

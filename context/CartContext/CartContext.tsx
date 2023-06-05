@@ -1,21 +1,10 @@
 'use client'
 import React, { createContext, useState, useContext } from 'react';
+import { CartItemType } from '@/interfaces/CartItemType/CartItemType';
+import { ProductType } from '../ProductType/ProductType';
 
 // Define the type of our product
-interface ProductType {
-  _id: string;
-  title: string;
-  description: string;
-  extraImages: string[];
-  mainImage: string;
-  price: number;
-}
 
-// Define the type of our cart items
-interface CartItemType {
-  product: ProductType; 
-  quantity: number;
-}
 
 // Define the shape of our context state and actions
 interface CartContextType {
