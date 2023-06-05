@@ -24,7 +24,7 @@ export const CartPopup: React.FC<CartPopupProps> = memo(({ onClose }) => {
       ) : (
         cart.map((item) => (
           <div key={item.id} className="mb-4 text-black">
-            <span className="font-semibold ">{item.productId.title}</span>
+            <span className="font-semibold ">{item.product.title}</span>
             <span className="ml-4">Quantity: {item.quantity}</span>
           </div>
         ))

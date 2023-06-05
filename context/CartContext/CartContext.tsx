@@ -13,7 +13,7 @@ interface ProductType {
 
 // Define the type of our cart items
 interface CartItemType {
-  productId: ProductType;
+  product: ProductType; 
   quantity: number;
 }
 
@@ -31,18 +31,17 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const addToCart = (product: ProductType, quantity: number) => {
     let newCart = [...cart];
-    let existingProductIndex = newCart.findIndex(item => item.productId._id === product._id);
+    let existingProductIndex = newCart.findIndex(item => item.product._id === product._id);
 
     if (existingProductIndex >= 0) {
       newCart[existingProductIndex].quantity += quantity;
     } else {
-      newCart.push({ productId: product, quantity });
+      newCart.push({ product, quantity }); // change this line
     }
 
     setCart(newCart);
     localStorage.setItem('cart', JSON.stringify(newCart));
     console.log(cart);
-    
   }
 
   return (

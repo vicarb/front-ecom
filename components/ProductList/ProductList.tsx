@@ -4,39 +4,58 @@ import Link from 'next/link';
 import Image from 'next/image';
 import axios from 'axios';
 import { Product } from '@/interfaces/Product/Product';
+import { useTransition, animated } from '@react-spring/web';
 
 const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [cartItems, setCartItems] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
-
 
   const handleAddToCart = (product: Product) => {
     setCartItems([...cartItems, product]);
   };
-  
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true);
       const response = await axios.get(`https://composterasur.cl/products`);
       setProducts(response.data);
-    }
+      setLoading(false);
+    };
 
     fetchProducts();
   }, []);
 
+  const transitions = useTransition(products, {
+    from: { opacity: 0, transform: 'translate3d(0,40px,0)' },
+    enter: { opacity: 1, transform: 'translate3d(0,0px,0)' },
+    leave: { opacity: 0, transform: 'translate3d(0,-40px,0)' },
+    trail: 200,
+    config: {
+      tension: 170,
+      friction: 20,
+      precision: 0.1,
+    },
+  });
+
+  if (loading) {
+    return <div>Loading...</div>; // replace with your preferred loading placeholder
+  }
+
   return (
     <div className="min-h-fit bg-gradient-to-br from-pink-500 via-red-500 to-orange-500 text-white">
       <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl font-bold mb-8 text-center">Our Products</h2>
+        <h2 className="text-4xl font-bold mb-8 text-center mt-12">Our Products</h2>
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {products.map((product) => (
-            <div
+          {transitions((styles, product) => (
+            <animated.div
               key={product._id}
               className="bg-white rounded-md shadow-md transition duration-300 transform hover:scale-105"
               onMouseEnter={() => setHoveredProductId(product._id)}
               onMouseLeave={() => setHoveredProductId(null)}
+              style={styles}
             >
               <div className="h-64 w-full relative">
                 <Link href={`/product/${product._id}`}>
@@ -69,7 +88,7 @@ const ProductList = () => {
                 </button>
               </div>
               <h2 className="px-4 py-2 text-gray-800 font-semibold text-lg">{product.title}</h2>
-            </div>
+            </animated.div>
           ))}
         </div>
       </div>
