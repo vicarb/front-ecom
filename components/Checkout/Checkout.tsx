@@ -21,7 +21,7 @@ const Checkout = () => {
         total: calculateTotal(cart),
         sessionId: Math.floor(Math.random() * 1000000000).toString(),
         buyOrder: Math.floor(Math.random() * 1000000000).toString(),
-        returnUrl: 'https://vicarb.github.io/upgraded-robot/success',
+        returnUrl: 'http://127.0.0.1:3000/success',
       });
       const url = response.data.url;
       const token = response.data.token;
@@ -143,8 +143,8 @@ const Checkout = () => {
         <h2 className="font-bold text-lg mb-2">Order Summary</h2>
         {cart.map((item) => (
           <div key={item.id} className="flex justify-between border-t pt-2 mt-2">
-            <p className="text-gray-800 font-semibold">{item.name} x {item.quantity}</p>
-            <p className="text-gray-800 font-semibold">${item.price}</p>
+            <p className="text-gray-800 font-semibold">{item.product.title} x {item.quantity}</p>
+            <p className="text-gray-800 font-semibold">${item.product.price}</p>
           </div>
         ))}
         <div className="flex justify-between border-t pt-2 mt-2">
