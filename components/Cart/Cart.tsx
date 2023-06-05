@@ -20,9 +20,9 @@ const Cart = () => {
         ) : (
           <>
             {cart.map((item) => (
-              <div key={item.id} className="border border-gray-300 rounded-md p-4 mb-4">
+              <div key={item.product._id} className="border border-gray-300 rounded-md p-4 mb-4">
                 <h3 className="text-2xl font-bold mb-2">{item.product.title}</h3>
-                <p className="text-lg mb-2">{item.description}</p>
+                <p className="text-lg mb-2">{item.product.description}</p>
                 <p className="text-lg font-bold mb-4">${item.product.price.toFixed(2)}</p>
                 <p className="text-lg font-bold mb-2">Quantity: {item.quantity}</p>
               </div>
