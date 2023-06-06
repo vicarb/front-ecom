@@ -3,7 +3,7 @@ import './globals.css'
 import { ReactNode } from 'react';
 import { Inter } from 'next/font/google'
 import { CartProvider } from '@/context/CartContext/CartContext';
-
+import Footer from '@/components/Footer/Footer';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -21,6 +21,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body>
         <CartProvider>
           {children}
+          <Footer/>
         </CartProvider>
       </body>
     </html>
