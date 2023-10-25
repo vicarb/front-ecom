@@ -77,19 +77,19 @@ const Navbar = () => {
       <div className="text-sm lg:flex-grow lg:text-right">
         <a
           href="#responsive-header"
-          className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-200 mr-4"
+          className="text-lg block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-200 mr-4"
         >
           Inicio
         </a>
         <a
           href="#responsive-header"
-          className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-200 mr-4"
+          className="text-lg block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-200 mr-4"
         >
           Nosotros
         </a>
         <a
           href="#responsive-header"
-          className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-200"
+          className="text-lg block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-200"
         >
           Blog
         </a>
